@@ -3,21 +3,24 @@ import time
 import os
 
 def setup():
-    # make a new folder called "scripts"
-    os.mkdir("scripts")
-    time.sleep(1)
-    print("Scripts folder created!")
-    time.sleep(1)
-    print("Adding example files...")
-    # add a example .2lang file
-    with open("scripts/example.2lang", "w") as f:
-        # contents:
-        # public prog HelloWorld() {
-        #   terminal.print("Hello, world!");
-        # }
-        f.write("public prog HelloWorld() {\n")
-        f.write("  terminal.print(\"Hello, world!\");\n")
-        f.write("}\n")
+    try:
+        # make a new folder called "scripts"
+        os.mkdir("scripts")
+        time.sleep(1)
+        print("Scripts folder created!")
+        time.sleep(1)
+        print("Adding example files...")
+        # add a example .2lang file
+        with open("scripts/example.2lang", "w") as f:
+            # contents:
+            # public prog HelloWorld() {
+            #   terminal.print("Hello, world!");
+            # }
+            f.write("public prog HelloWorld() {\n")
+            f.write("  terminal.print(\"Hello, world!\");\n")
+            f.write("}\n")
+    except FileExistsError:
+        pass # we know the file already exists, so we can just call the compiler
 
 def compiler(file_path):
     # if boilerplate is not present in the file, throw an error
@@ -48,3 +51,23 @@ def compiler(file_path):
             print(f.readline()[11:-2])
             print(int(input()))
         # NOTE: The code is starting to get messy, but it works!
+
+def main():
+    setup()
+    # ask the user for a file name
+    file_path = input("Enter the file name: ")
+    # search everywhere for a file with that exact name
+    for root, dirs, files in os.walk("."):
+        for file in files:
+            if file == file_path:
+                file_path = root + "/" + file
+                break
+    # if the file is not found, throw an error
+    if not os.path.isfile(file_path):
+        print("Error: file not found!")
+        return
+    # if the file exists, call the compiler
+    compiler(file_path)
+
+if __name__ == "__main__":
+    main()

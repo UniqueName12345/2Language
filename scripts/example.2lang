@@ -1,0 +1,3 @@
+public prog HelloWorld() {
+  terminal.print("Hello, world!");
+}
