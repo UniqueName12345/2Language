@@ -31,6 +31,5 @@ var i = 0;
 terminal.print(i)
 ```
 
-Which will just print the number.
-
-## That's all for now.
+Which will just print the number.  
+And, that's all for now.
