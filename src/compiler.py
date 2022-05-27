@@ -29,7 +29,7 @@ def compiler(file_path):
     # if boilerplate is present, move onto the next step
     # check each line of the file
     with open(file_path, "r") as f:
-        # if the line is a comment, skip it
+        # if the line contains a comment, skip it
         if "&&" in f.readline():
             return
         # else if the line is a public prog, skip it
