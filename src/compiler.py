@@ -60,7 +60,7 @@ def main():
     for root, dirs, files in os.walk("."):
         for file in files:
             if file == file_path:
-                file_path = root + "/" + file
+                file_path = f"{root}/{file}"
                 break
     # if the file is not found, throw an error
     if not os.path.isfile(file_path):
